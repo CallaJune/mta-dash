@@ -1,10 +1,7 @@
 STATION_LABELS = {
-    "10c1": "110 St/CPW ",
-    "5ef0": "110 St/Bdwy",
-    "705f": "110 St/CPN ",
-    "0e0a": "50 St/8th  ",
-    "0690": "50 St/Brdwy",
-    "87d2": "Grand Centr",
+    "A17": "110 St/CPW ",
+    "118": "110 St/Bdwy",
+    "227": "110 St/CPN ",
 }
 
 ROUTE_COLORS = {

@@ -1,13 +1,8 @@
 # Personal Configs
-STOP_IDS = ["0e0a", "0690"]
-ROUTES = set({"A", "C", "E"})
+STOP_IDS = ["A17"]
+ROUTES = set({"C", "B"})
 STATION_MINIMUM_MINUTES_DISPLAY = {
-    "10c1": 3,
-    "5ef0": 15,
-    "705f": 7,
-    "0e0a": 7,
-    "0690": 9,
-    "87d2": 20,
+    "A17": 1,
 }
 # Hardware configs
 UPDATE_DELAY = 4  # in seconds
