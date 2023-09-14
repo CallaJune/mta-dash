@@ -18,7 +18,9 @@ ROUTE_COLORS = {
     "E": 0x0039A6,
 }
 
-DIRECTIONS = ["N", "S"]
+HEADER_COLOR = 0x444444
+NULL_DATA_COLOR = 0xDD8000
+
 DIRECTION_LABELS = {"N": "N", "S": "S"}
 
 DATA_URL = "https://api.wheresthefuckingtrain.com/by-id/"

@@ -75,6 +75,10 @@ def get_trains(direction):
 
 
 def update_text(trains):
+    if len(trains) < 3:
+        for i in range(3, 3 - len(trains), -1):
+            text_lines[i].text = "-  -   -"
+            text_lines[i].color = constants.NULL_DATA_COLOR
     line = 1
     for train in trains:
         text_lines[line].text = "%s  %s   %sm" % (
@@ -94,21 +98,19 @@ network = Network(status_neopixel=NEOPIXEL, debug=False)
 
 # --- Drawing setup ---
 group = displayio.Group()
-colors = [0x444444, 0xDD8000]  # [dim white, gold]
-
 font = bitmap_font.load_font("fonts/6x10.bdf")
 text_lines = [
     adafruit_display_text.label.Label(
-        font, color=colors[0], x=3, y=3, text="LN DIR MIN"
+        font, color=constants.HEADER_COLOR, x=3, y=3, text="LN DIR MIN"
     ),
     adafruit_display_text.label.Label(
-        font, color=colors[1], x=3, y=11, text="-  -   -"
+        font, color=constants.NULL_DATA_COLOR, x=3, y=11, text="-  -   -"
     ),
     adafruit_display_text.label.Label(
-        font, color=colors[1], x=3, y=20, text="-  -   -"
+        font, color=constants.NULL_DATA_COLOR, x=3, y=20, text="-  -   -"
     ),
     adafruit_display_text.label.Label(
-        font, color=colors[1], x=3, y=28, text="-  -   -"
+        font, color=constants.NULL_DATA_COLOR, x=3, y=28, text="-  -   -"
     ),
 ]
 for x in text_lines:
@@ -127,7 +129,7 @@ while True:
             # Sync clock to minimize time drift
             network.get_local_time()
             last_time_sync = time.monotonic()
-        arrivals = [get_trains(constants.DIRECTIONS[it_dir])]
+        arrivals = [get_trains(configs.DIRECTIONS[it_dir])]
         update_text(*arrivals)
     except (ValueError, RuntimeError) as e:
         print("Some error occured, retrying! -", e)
@@ -135,6 +137,6 @@ while True:
         if error_counter > configs.ERROR_RESET_THRESHOLD:
             microcontroller.reset()
 
-    it_dir = (it_dir + 1) % len(constants.DIRECTIONS)
+    it_dir = (it_dir + 1) % len(configs.DIRECTIONS)
 
     time.sleep(configs.UPDATE_DELAY)
