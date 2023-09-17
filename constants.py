@@ -1,4 +1,5 @@
 STATION_LABELS = {
+    "A16": "116 St/FrDg", # B/C
     "A17": "110 St/CPW ", # B/C
     "A31": "14 St/8th  ", # A/C/E/L
     "117": "116 St/Bdwy", # 1
@@ -37,3 +38,4 @@ DIRECTION_LABELS = {"N": "N", "S": "S"}
 
 DATA_URL = "https://api.wheresthefuckingtrain.com/by-id/"
 DATA_LOCATION = ["data"]
+NULL_DATA = "-  -   -"

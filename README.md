@@ -30,6 +30,4 @@ I most frequently take the C, E, or 1 trains. The C and E trains leave from 50th
 I display the line (in the route's MTA color), the direction (e.g. N for North, S for South), and the number of minutes until it arrives. These lines arrive at different stations. While I could easily display the station (I have a station name attribute for that purpose), at this moment I do not due to lack of real estate and reason in my circumstance (I know the 1 runs along Broadway!).
 
 ## Future Work
-
-* An obvious refactor which I haven't done due to laziness and the fact that I am currently only using this board to track one station. When multiple stations' trains are displayed, I currently make separate API requests for each one. I should instead use `/by-id/[stop_id],[stop_id],...` and make only one API request per refresh. This will require a refactoring of `get_trains`.
 * The API I am using has a `/by-location?lat=[LATITUDE]&lon=[LONGITUDE]` endpoint which displays data for the 5 stations nearest to the provided latitude/longitude pair. If I could figure out how to fit the station name on the board, I could simply display the nearest and soonest `n` trains, filtered for which stations one wants to travel to and how long it takes to get to each one. 

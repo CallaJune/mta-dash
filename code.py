@@ -13,35 +13,25 @@ import configs
 import constants
 import train
 
-
-def fetch_data(stop_id):
+def fetch_data(stop_ids):
     data = network.fetch_data(
-        constants.DATA_URL + stop_id, json_path=(constants.DATA_LOCATION,)
+        constants.DATA_URL + ",".join(stop_ids), json_path=(constants.DATA_LOCATION,)
     )
-    return data[0]
-
-
-def get_stop_name():
-    data = fetch_data()
-    return data["name"]
-
+    return data
 
 def get_arrival_in_minutes_from_now(now, date_str):
     # Remove tzinfo to diff dates
     train_date = datetime.fromisoformat(date_str).replace(tzinfo=None)
     return round((train_date - now).total_seconds() / 60.0)
 
-
 # Get soonest trains at a given station
-# Input station ID, direction (e.g. N, S)
+# Input direction (e.g. "N", "S")
 # Return list of Train objects
-def get_trains_for_station(station_id, direction):
-    # Get all trains from station with id station_id
-    stop_data = fetch_data(station_id)
-
+def get_trains_for_station(station_data, direction):
     now = datetime.now()
     print("Now: ", now)
-
+    station_id = station_data["id"]
+    print("Station ID: ", station_id)
     # Create list of Train objects for each train arriving at station
     trains = []
     trains = [
@@ -51,7 +41,7 @@ def get_trains_for_station(station_id, direction):
             station_id,
             direction,
         )
-        for x in stop_data[direction]
+        for x in station_data[direction]
     ]
 
     # Filter by arrival time and route
@@ -65,19 +55,18 @@ def get_trains_for_station(station_id, direction):
 
     return arrivals
 
-
 def get_trains(direction):
     all_trains = []
-    for stop in configs.STOP_IDS:
-        all_trains = all_trains + get_trains_for_station(stop, direction)
+    train_data = fetch_data(configs.STOP_IDS)
+    for station_data in train_data:
+        all_trains = all_trains + get_trains_for_station(station_data, direction)
     all_trains.sort(key=lambda x: x.num_minutes, reverse=False)
     return all_trains[0:3]
-
 
 def update_text(trains):
     if len(trains) < 3:
         for i in range(3, len(trains), -1):
-            text_lines[i].text = "-  -   -"
+            text_lines[i].text = constants.NULL_DATA
             text_lines[i].color = constants.NULL_DATA_COLOR
     line = 1
     for train in trains:
@@ -104,13 +93,13 @@ text_lines = [
         font, color=constants.HEADER_COLOR, x=3, y=3, text="LN DIR MIN"
     ),
     adafruit_display_text.label.Label(
-        font, color=constants.NULL_DATA_COLOR, x=3, y=11, text="-  -   -"
+        font, color=constants.NULL_DATA_COLOR, x=3, y=11, text=constants.NULL_DATA
     ),
     adafruit_display_text.label.Label(
-        font, color=constants.NULL_DATA_COLOR, x=3, y=20, text="-  -   -"
+        font, color=constants.NULL_DATA_COLOR, x=3, y=20, text=constants.NULL_DATA
     ),
     adafruit_display_text.label.Label(
-        font, color=constants.NULL_DATA_COLOR, x=3, y=28, text="-  -   -"
+        font, color=constants.NULL_DATA_COLOR, x=3, y=28, text=constants.NULL_DATA
     ),
 ]
 for x in text_lines:
