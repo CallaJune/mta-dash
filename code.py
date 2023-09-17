@@ -76,7 +76,7 @@ def get_trains(direction):
 
 def update_text(trains):
     if len(trains) < 3:
-        for i in range(3, 3 - len(trains), -1):
+        for i in range(3, len(trains), -1):
             text_lines[i].text = "-  -   -"
             text_lines[i].color = constants.NULL_DATA_COLOR
     line = 1

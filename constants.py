@@ -1,7 +1,19 @@
 STATION_LABELS = {
-    "A17": "110 St/CPW ",
-    "118": "110 St/Bdwy",
-    "227": "110 St/CPN ",
+    "A17": "110 St/CPW ", # B/C
+    "A31": "14 St/8th  ", # A/C/E/L
+    "117": "116 St/Bdwy", # 1
+    "118": "110 St/Bdwy", # 1
+    "119": "103 St/Bdwy", # 1
+    "120": "96 St/Bdwy ", # 1/2/3
+    "121": "86 St/Bdwy ", # 1
+    "122": "79 St/Bdwy ", # 1
+    "123": "72 St/Bdwy ", # 1
+    "124": "66 St/Bdwy ", # 1
+    "125": "59 St/ClmCr", # 1/A/B/C/D
+    "126": "50 St/Bdwy ", # 1
+    "127": "42 St/TmSqr", # 1/7/2/R/S/N/3/Q
+    "227": "110 St/CPN ", # 2/3
+    "132": "14 St/7th  ", # 1/2/3
 }
 
 ROUTE_COLORS = {
