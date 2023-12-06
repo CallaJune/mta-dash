@@ -129,3 +129,7 @@ while True:
     it_dir = (it_dir + 1) % len(configs.DIRECTIONS)
 
     time.sleep(configs.UPDATE_DELAY)
+    
+    if not network._wifi.is_connected:
+        print("Wifi not connected. Resetting...")
+        microcontroller.reset()
