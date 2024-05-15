@@ -3,6 +3,7 @@ import time
 import microcontroller
 from board import NEOPIXEL
 import displayio
+import gc
 import adafruit_display_text.label
 from adafruit_datetime import datetime
 from adafruit_bitmap_font import bitmap_font
@@ -14,10 +15,14 @@ import constants
 import train
 
 def fetch_data(stop_ids):
-    data = network.fetch_data(
-        constants.DATA_URL + ",".join(stop_ids), json_path=(constants.DATA_LOCATION,)
-    )
-    return data
+    try:
+        data = network.fetch_data(
+            constants.DATA_URL + ",".join(stop_ids), json_path=(constants.DATA_LOCATION,)
+        )
+        return data
+    except MemoryError as e:
+        print("Some error occured: ", e)
+        gc.collect()
 
 def get_arrival_in_minutes_from_now(now, date_str):
     # Remove tzinfo to diff dates
@@ -52,7 +57,6 @@ def get_trains_for_station(station_data, direction):
             and arriving_train.route in configs.ROUTES
         ):
             arrivals.append(arriving_train)
-
     return arrivals
 
 def get_trains(direction):
@@ -106,11 +110,15 @@ for x in text_lines:
     group.append(x)
 display.show(group)
 
-error_counter = 0
+
+# --- Main loop ---
+last_reset = time.monotonic()
 last_time_sync = None
 it_dir = 0
 while True:
     try:
+        if (time.monotonic() > last_reset + configs.RESET_DELAY):
+            microcontroller.reset()
         if (
             last_time_sync is None
             or time.monotonic() > last_time_sync + configs.SYNC_TIME_DELAY
@@ -122,14 +130,6 @@ while True:
         update_text(*arrivals)
     except (ValueError, RuntimeError) as e:
         print("Some error occured, retrying! -", e)
-        error_counter = error_counter + 1
-        if error_counter > configs.ERROR_RESET_THRESHOLD:
-            microcontroller.reset()
 
     it_dir = (it_dir + 1) % len(configs.DIRECTIONS)
-
     time.sleep(configs.UPDATE_DELAY)
-    
-    if not network._wifi.is_connected:
-        print("Wifi not connected. Resetting...")
-        microcontroller.reset()
