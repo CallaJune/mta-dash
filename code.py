@@ -83,7 +83,7 @@ def update_text(trains):
         )
         text_lines[line].color = train.route_color
         line += 1
-    display.show(group)
+    display.root_group = group
 
 
 # --- Display setup ---
