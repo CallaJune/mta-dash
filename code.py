@@ -16,13 +16,14 @@ import train
 
 def fetch_data(stop_ids):
     try:
+        query = constants.DATA_URL + ",".join(stop_ids)
         data = network.fetch_data(
-            constants.DATA_URL + ",".join(stop_ids), json_path=(constants.DATA_LOCATION,)
+            query, json_path=(constants.DATA_LOCATION,)
         )
         return data
     except MemoryError as e:
-        print("Some error occured: ", e)
         gc.collect()
+        print("Some error occured: ", e)
 
 def get_arrival_in_minutes_from_now(now, date_str):
     # Remove tzinfo to diff dates
@@ -60,6 +61,7 @@ def get_trains_for_station(station_data, direction):
     return arrivals
 
 def get_trains(direction):
+    gc.collect()
     all_trains = []
     train_data = fetch_data(configs.STOP_IDS)
     for station_data in train_data:
@@ -108,7 +110,7 @@ text_lines = [
 ]
 for x in text_lines:
     group.append(x)
-display.show(group)
+display.root_group = group
 
 
 # --- Main loop ---
