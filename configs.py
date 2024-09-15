@@ -11,3 +11,4 @@ DIRECTIONS = ["S", "N"] # Options: "S", "N"
 UPDATE_DELAY = 10  # in seconds
 SYNC_TIME_DELAY = 60
 RESET_DELAY = 3600 # CircuitPython runs out of sockets occasionally. Reset it periodically.
+ERROR_RESET_THRESHOLD = 30

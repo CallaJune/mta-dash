@@ -21,9 +21,9 @@ def fetch_data(stop_ids):
             query, json_path=(constants.DATA_LOCATION,)
         )
         return data
-    except MemoryError as e:
-        gc.collect()
-        print("Some error occured: ", e)
+    except Exception as e:
+        print("Some error occured in fetch_data(): ", e)
+        handle_errors()
 
 def get_arrival_in_minutes_from_now(now, date_str):
     # Remove tzinfo to diff dates
@@ -64,9 +64,10 @@ def get_trains(direction):
     gc.collect()
     all_trains = []
     train_data = fetch_data(configs.STOP_IDS)
-    for station_data in train_data:
-        all_trains = all_trains + get_trains_for_station(station_data, direction)
-    all_trains.sort(key=lambda x: x.num_minutes, reverse=False)
+    if train_data:
+        for station_data in train_data:
+            all_trains = all_trains + get_trains_for_station(station_data, direction)
+        all_trains.sort(key=lambda x: x.num_minutes, reverse=False)
     return all_trains[0:3]
 
 def update_text(trains):
@@ -84,6 +85,14 @@ def update_text(trains):
         text_lines[line].color = train.route_color
         line += 1
     display.root_group = group
+
+def handle_errors():
+    global error_counter
+    error_counter += 1
+    gc.collect()
+    print("Error counter: ", error_counter)
+    if error_counter > configs.ERROR_RESET_THRESHOLD:
+        microcontroller.reset()
 
 
 # --- Display setup ---
@@ -117,6 +126,7 @@ display.root_group = group
 last_reset = time.monotonic()
 last_time_sync = None
 it_dir = 0
+error_counter = 0
 while True:
     try:
         if (time.monotonic() > last_reset + configs.RESET_DELAY):
@@ -130,8 +140,9 @@ while True:
             last_time_sync = time.monotonic()
         arrivals = [get_trains(configs.DIRECTIONS[it_dir])]
         update_text(*arrivals)
-    except (ValueError, RuntimeError) as e:
-        print("Some error occured, retrying! -", e)
+    except Exception as e:
+        print("Some error occured in main loop: ", e)
+        handle_errors()
 
     it_dir = (it_dir + 1) % len(configs.DIRECTIONS)
     time.sleep(configs.UPDATE_DELAY)
