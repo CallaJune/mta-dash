@@ -8,7 +8,7 @@ This repo holds the code for my personal MTA departure dashboard which I referen
 
 Run your own MTA Portal on CircuitPython to display trains arrivals using Adafruit's [hardware](https://www.adafruit.com/product/4812) and libraries.
 
-Follow Adafruit main [tutorial](https://learn.adafruit.com/adafruit-matrixportal-m4) to set up your MatrixPortal.
+Follow Adafruit main [tutorial](https://learn.adafruit.com/adafruit-matrixportal-m4) to set up your MatrixPortal. Once you've installed CircuitPython and you reach the [library installation step](https://learn.adafruit.com/adafruit-matrixportal-m4/circuitpython-setup), you can unzip `lib.zip` in this repo and use its contents to replace the `/lib` folder if you are using CircuitPython 9.1.3. If CircuitPython has released an update which this repo has not yet adopted, you can use the contents of `lib.zip` to determine which libraries from the Adafruit-provided library bundle are needed. 
 
 ## Config
 
@@ -18,7 +18,8 @@ Config variables:
 
 - `STOP_IDS`: Find your station ID [here](https://github.com/jonthornton/MTAPI/blob/master/data/stations.json)
 - `ROUTES`: Train routes you want to track
-- `UPDATE_DELAY`: Delay in seconds before fetching new data
+- `DIRECTIONS`: Which directions you want to display on the board. The options are north ("N") and south ("S") as defined by the MTA API.
+- `UPDATE_DELAY`: Delay in seconds before fetching (and therefore updating) new data
 - `STATION_MINIMUM_MINUTES_DISPLAY`: Only display arrival times greater or equal than this value. Useful to only show trains you can catch.
 
 ## Usecase

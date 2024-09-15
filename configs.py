@@ -9,6 +9,6 @@ STATION_MINIMUM_MINUTES_DISPLAY = {
 DIRECTIONS = ["S", "N"] # Options: "S", "N"
 # Hardware configs
 UPDATE_DELAY = 10  # in seconds
-SYNC_TIME_DELAY = 60
+SYNC_TIME_DELAY = 60 # in seconds; syncs to network time every so often to prevent drift
 RESET_DELAY = 3600 # CircuitPython runs out of sockets occasionally. Reset it periodically.
-ERROR_RESET_THRESHOLD = 30
+ERROR_RESET_THRESHOLD = 30 # number of caught errors before the board restarts
