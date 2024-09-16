@@ -1,10 +1,10 @@
 # MTA Dash
 
-This repo holds the code for my personal MTA departure dashboard which I reference in the mornings before heading to work. I call it MTA _Dash_ both for "dashboard" and for all the times I end up running to the station to catch the train. It is heavily inspired (basically stolen) from alejandrorascovan's [MTA Portal](https://github.com/alejandrorascovan/mta-portal/) which is far prettier, which prompted me to purchase an [Adafruit Matrix Portal Starter Kit](https://www.adafruit.com/product/4812) and repurpose the code for my own usecase. I've jotted down some of my thoughts and documented usage so that you may use/repurpose this code for your own circumstances. I've also written it in a way that may make that process less painful than it could have been had I not made any attempt at all to make it readable. However, I make no guarantee of its readability, usability, or efficiency. I cobbled this together for myself, and this is not reflective of my personal or professional standards for code. 
+This repo holds the code for my personal MTA departure dashboard which I reference in the mornings before heading to work. I call it MTA _Dash_ both for "dashboard" and for all the times I end up running to the station to catch the train. It is inspired from alejandrorascovan's [MTA Portal](https://github.com/alejandrorascovan/mta-portal/), which prompted me to purchase an [Adafruit Matrix Portal Starter Kit](https://www.adafruit.com/product/4812) and repurpose the code for my own usecase. I've jotted down some of my thoughts and documented usage so that you may use/repurpose this code for your own circumstances. I've also written it in a way that may make that process less painful than it could have been had I not made any attempt at all to make it readable. However, I make no guarantee of its readability, usability, or efficiency. I cobbled this together for myself, and this is not reflective of my personal or professional standards for code. 
 
-<img src="IMG_1632.jpeg" alt="Adafruit MatrixPortal LED RGB board featuring soonest 1, E, and C northbound trains and arrival times" width=400 />
+<img src="IMG_4992.jpeg" alt="Adafruit MatrixPortal LED RGB board featuring soonest C, A, and D northbound trains and arrival times" width=400 />
 
-<img src="IMG_1645.jpeg" alt="Adafruit MatrixPortal LED RGB board featuring soonest C, B, and 2 southbound trains and arrival times" width=400 />
+<img src="IMG_4991.jpeg" alt="Adafruit MatrixPortal LED RGB board featuring soonest C and 2 southbound trains and arrival times" width=400 />
 
 Run your own MTA Portal on CircuitPython to display trains arrivals using Adafruit's [hardware](https://www.adafruit.com/product/4812) and libraries.
 

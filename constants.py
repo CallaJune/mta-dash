@@ -15,6 +15,7 @@ STATION_LABELS = {
     "127": "42 St/TmSqr", # 1/7/2/R/S/N/3/Q
     "227": "110 St/CPN ", # 2/3
     "132": "14 St/7th  ", # 1/2/3
+    "101": "VanCort-242", # 1
 }
 
 ROUTE_COLORS = {
@@ -33,9 +34,9 @@ ROUTE_COLORS = {
 
 HEADER_COLOR = 0x444444
 NULL_DATA_COLOR = 0xDD8000
-
+BACKGROUND_COLOR  = 0x000000
 DIRECTION_LABELS = {"N": "N", "S": "S"}
 
 DATA_URL = "https://api.wheresthefuckingtrain.com/by-id/"
 DATA_LOCATION = ["data"]
-NULL_DATA = "-  -   -"
+NULL_DATA = "   -   -"
