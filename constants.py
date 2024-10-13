@@ -16,6 +16,7 @@ STATION_LABELS = {
     "227": "110 St/CPN ", # 2/3
     "132": "14 St/7th  ", # 1/2/3
     "101": "VanCort-242", # 1
+    "601": "Pelham Bay ", # 6
 }
 
 ROUTE_COLORS = {
